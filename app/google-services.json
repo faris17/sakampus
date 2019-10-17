@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "342164518611",
+    "firebase_url": "https://sakampus-cdbef.firebaseio.com",
+    "project_id": "sakampus-cdbef",
+    "storage_bucket": "sakampus-cdbef.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:342164518611:android:89902eb3d2686227c8c626",
+        "android_client_info": {
+          "package_name": "com.asadeveloper.sakampus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "342164518611-0rgjputaskh52np6es53grr21d02u07g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCjjD4w3U4Cx6KUj_Ywko2bwPLfpwqVdoI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "342164518611-0rgjputaskh52np6es53grr21d02u07g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
