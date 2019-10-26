@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.asadeveloper.sakampus.DetailMahasiswa;
 import com.asadeveloper.sakampus.R;
 import com.asadeveloper.sakampus.model.DataMahasiswa;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -21,9 +23,12 @@ public class MahasiswaAdapter extends RecyclerView.Adapter<MahasiswaAdapter.MyVi
     private Context context;
     private ArrayList<DataMahasiswa> dataMahasiswas;
 
+    private DatabaseReference ref;
+
     public MahasiswaAdapter(Context cont, ArrayList<DataMahasiswa> data){
         context= cont;
         dataMahasiswas = data;
+        ref = FirebaseDatabase.getInstance().getReference().child("mahasiswa");
     }
 
     @NonNull
@@ -50,6 +55,14 @@ public class MahasiswaAdapter extends RecyclerView.Adapter<MahasiswaAdapter.MyVi
                 context.startActivity(detail);
             }
         });
+
+        holder.btndelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //hapus data
+                ref.child(dataMahasiswas.get(position).getNim()).removeValue();
+            }
+        });
     }
 
     @Override
@@ -59,7 +72,7 @@ public class MahasiswaAdapter extends RecyclerView.Adapter<MahasiswaAdapter.MyVi
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView vnama, valamat;
-        Button btndetail;
+        Button btndetail, btndelete;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -67,6 +80,7 @@ public class MahasiswaAdapter extends RecyclerView.Adapter<MahasiswaAdapter.MyVi
             vnama = itemView.findViewById(R.id.tv_nama);
             valamat = itemView.findViewById(R.id.tv_alamat);
             btndetail = itemView.findViewById(R.id.btn_detail);
+            btndelete = itemView.findViewById(R.id.btn_delete);
         }
     }
 }

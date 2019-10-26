@@ -53,6 +53,17 @@
                 android:textColor="@color/colorWhite"
                 android:textStyle="bold"
                 android:id="@+id/btn_detail"/>
+            <Button
+                android:layout_toRightOf="@+id/tv_alamat"
+                android:layout_below="@+id/tv_alamat"
+                android:layout_width="70dp"
+                android:layout_height="30dp"
+                android:textSize="10dp"
+                android:layout_margin="5dp"
+                android:text="Delete"
+                android:textColor="@color/colorAccent"
+                android:textStyle="bold"
+                android:id="@+id/btn_delete"/>
 
         </RelativeLayout>
     </LinearLayout>

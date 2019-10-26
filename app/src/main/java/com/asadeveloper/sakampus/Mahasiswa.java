@@ -6,7 +6,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.asadeveloper.sakampus.adapter.MahasiswaAdapter;
@@ -21,6 +24,7 @@ import java.util.ArrayList;
 
 public class Mahasiswa extends AppCompatActivity {
     private DatabaseReference reference;
+    Button btnTambah;
 
     ArrayList<DataMahasiswa> list;
     MahasiswaAdapter adapter;
@@ -36,6 +40,8 @@ public class Mahasiswa extends AppCompatActivity {
         mRecylcer = findViewById(R.id.list_mahasiswa);
         mRecylcer.setHasFixedSize(true);
 
+        btnTambah = findViewById(R.id.tambahMahasiswa);
+
         mManager = new LinearLayoutManager(this);
         mManager.setReverseLayout(true);
         mManager.setStackFromEnd(true);
@@ -49,6 +55,7 @@ public class Mahasiswa extends AppCompatActivity {
                 list = new ArrayList<>();
                 for(DataSnapshot dataSnapshot1: dataSnapshot.getChildren()){
                     DataMahasiswa mhs = dataSnapshot1.getValue(DataMahasiswa.class);
+                    mhs.setNim(dataSnapshot1.getKey());
                     list.add(mhs);
                 }
                 adapter = new MahasiswaAdapter(getApplicationContext(), list);
@@ -58,6 +65,15 @@ public class Mahasiswa extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Toast.makeText(getApplicationContext(), "Terjadi kesalahan",Toast.LENGTH_LONG).show();
+            }
+        });
+
+        //event klik untuk tambah mahasiswa
+        btnTambah.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent tambah = new Intent(getApplicationContext(), FormMahasiswa.class);
+                startActivity(tambah);
             }
         });
     }

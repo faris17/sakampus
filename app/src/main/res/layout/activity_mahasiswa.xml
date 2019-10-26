@@ -14,6 +14,13 @@
         android:text="Data Mahasiswa"
         android:layout_margin="20dp"
         />
+    <Button
+        android:id="@+id/tambahMahasiswa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mahasiswa"
+        android:layout_marginLeft="30dp"
+        android:layout_marginBottom="15dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list_mahasiswa"

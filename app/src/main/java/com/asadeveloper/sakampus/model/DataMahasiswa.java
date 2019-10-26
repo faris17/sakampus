@@ -1,7 +1,7 @@
 package com.asadeveloper.sakampus.model;
 
 public class DataMahasiswa {
-    String nama, alamat, gender, hobi;
+    String nama, alamat, gender, hobi, nim;
 
     public DataMahasiswa(){}
 
@@ -10,6 +10,14 @@ public class DataMahasiswa {
         this.alamat = alamat;
         this.gender = gender;
         this.hobi = hobi;
+    }
+
+    public String getNim() {
+        return nim;
+    }
+
+    public void setNim(String nim) {
+        this.nim = nim;
     }
 
     public String getNama() {
