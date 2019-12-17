@@ -2,10 +2,12 @@ package com.asadeveloper.sakampus.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,8 +16,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.asadeveloper.sakampus.DetailMahasiswa;
 import com.asadeveloper.sakampus.R;
 import com.asadeveloper.sakampus.model.DataMahasiswa;
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
@@ -25,10 +32,15 @@ public class MahasiswaAdapter extends RecyclerView.Adapter<MahasiswaAdapter.MyVi
 
     private DatabaseReference ref;
 
+    //variable untuk firebase storage
+    private StorageReference reference;
+
     public MahasiswaAdapter(Context cont, ArrayList<DataMahasiswa> data){
         context= cont;
         dataMahasiswas = data;
         ref = FirebaseDatabase.getInstance().getReference().child("mahasiswa");
+        reference = FirebaseStorage.getInstance().getReference();
+
     }
 
     @NonNull
@@ -42,6 +54,8 @@ public class MahasiswaAdapter extends RecyclerView.Adapter<MahasiswaAdapter.MyVi
     public void onBindViewHolder(@NonNull MyViewHolder holder,final int position) {
         holder.vnama.setText(dataMahasiswas.get(position).getNama());
         holder.valamat.setText(dataMahasiswas.get(position).getAlamat());
+
+        getImage("images/"+dataMahasiswas.get(position).getNim()+".jpg",holder.foto);
 
         holder.btndetail.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,6 +87,7 @@ public class MahasiswaAdapter extends RecyclerView.Adapter<MahasiswaAdapter.MyVi
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView vnama, valamat;
         Button btndetail, btndelete;
+        ImageView foto;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -81,6 +96,27 @@ public class MahasiswaAdapter extends RecyclerView.Adapter<MahasiswaAdapter.MyVi
             valamat = itemView.findViewById(R.id.tv_alamat);
             btndetail = itemView.findViewById(R.id.btn_detail);
             btndelete = itemView.findViewById(R.id.btn_delete);
+            foto = itemView.findViewById(R.id.foto_alumni);
+
         }
     }
+
+    public void getImage(String data, final ImageView foto){
+        reference.child(data).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                //tampilkan gambar dengan glide
+                Glide.with(context)
+                        .load(uri)
+                        .into(foto);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
+    }
+
+
 }
